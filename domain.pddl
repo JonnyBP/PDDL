@@ -2,15 +2,14 @@
     (:requirements :strips :typing)
     
     (:types
-        ubicacion objeto - object
-        herramienta rueda - objeto
-        robot mecanico - object
-        coche - object
+        ubicacion - object
+        locatable - object
+        robot mecanico coche herramienta rueda - locatable
     )
     
     (:predicates
-        (at ?obj - objeto ?loc - ubicacion)
-        (holding ?r - robot ?item - objeto)
+        (at ?obj - locatable ?loc - ubicacion)
+        (holding ?r - robot ?item - locatable)
         (libre ?r - robot)
 
         (coche-en-suelo ?c - coche)
@@ -20,7 +19,7 @@
         (rueda-puesta ?c - coche)
     )
 
-    ;; acciones de movimiento y manipulación
+    ;; acciones de movimiento y manipulacion
     (:action mover-robot
         :parameters (?r - robot ?loc-desde - ubicacion ?loc-hasta - ubicacion)
         :precondition (and (at ?r ?loc-desde) )
@@ -31,7 +30,7 @@
     )
         
     (:action recoger 
-        :parameters (?r - robot ?item - objeto ?loc - ubicacion) 
+        :parameters (?r - robot ?item - locatable ?loc - ubicacion) 
         :precondition (and (at ?r ?loc) (at ?item ?loc) (libre ?r)) 
         :effect (and 
             (not (at ?item ?loc)) 
@@ -40,17 +39,17 @@
         ) 
     )
     
-    (:action Soltar
-        :parameters (?r - robot ?item - objeto ?loc - ubicacion)
+    (:action soltar
+        :parameters (?r - robot ?item - locatable ?loc - ubicacion)
         :precondition (and (at ?r ?loc) (holding ?r ?item))
         :effect (and
             (not (holding ?r ?item))
             (at ?item ?loc)
-            (libre ?r)
+            (libre ?r)    
         )
     )
 
-    ;; Acciones mecánicas
+    ;; Acciones mecanicas
 
     (:action aflojar-tuercas
         :parameters (?r - robot ?h - herramienta ?c - coche ?loc - ubicacion)
