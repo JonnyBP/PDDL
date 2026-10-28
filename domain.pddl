@@ -4,7 +4,9 @@
     (:types
         ubicacion - object
         locatable - object
-        robot mecanico coche herramienta rueda - locatable
+        robot mecanico coche - locatable
+        portatil - locatable
+        herramienta rueda - portatil
     )
     
     (:predicates
@@ -30,7 +32,7 @@
     )
         
     (:action recoger 
-        :parameters (?r - robot ?item - locatable ?loc - ubicacion) 
+        :parameters (?r - robot ?item - portatil ?loc - ubicacion) 
         :precondition (and (at ?r ?loc) (at ?item ?loc) (libre ?r)) 
         :effect (and 
             (not (at ?item ?loc)) 
@@ -40,7 +42,7 @@
     )
     
     (:action soltar
-        :parameters (?r - robot ?item - locatable ?loc - ubicacion)
+        :parameters (?r - robot ?item - portatil ?loc - ubicacion)
         :precondition (and (at ?r ?loc) (holding ?r ?item))
         :effect (and
             (not (holding ?r ?item))
