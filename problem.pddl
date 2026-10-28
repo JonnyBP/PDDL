@@ -1,5 +1,5 @@
 (define (problem resolver-pinchazo) 
-    (:domain taller-mecanico)
+    (:domain taller-mecanico-completo)
     (:objects
         almacen zona-coche - ubicacion
 
@@ -18,7 +18,6 @@
         (at rueda-nueva almacen)
 
         (at coche1 zona-coche)
-        (at rueda-vieja zona-coche)
 
         ;; estado inicial del robot y coche
         (libre robot1)

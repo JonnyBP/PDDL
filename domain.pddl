@@ -1,4 +1,4 @@
-(define (domain taller-mecanico)
+(define (domain taller-mecanico-completo)
     (:requirements :strips :typing)
     
     (:types
@@ -14,7 +14,7 @@
 
         (coche-en-suelo ?c - coche)
         (coche-elevado ?c - coche)
-        (tuercas-flojas ?c - coche)
+        (tuercas-aflojadas ?c - coche)
         (rueda-quitada ?c - coche)
         (rueda-puesta ?c - coche)
     )
@@ -52,26 +52,26 @@
     ;; Acciones mecanicas
 
     (:action aflojar-tuercas
-        :parameters (?r - robot ?h - herramienta ?c - coche ?loc - ubicacion)
+        :parameters (?r - robot ?llave - herramienta ?c - coche ?loc - ubicacion)
         :precondition (and
             (at ?r ?loc)
             (at ?c ?loc)
-            (holding ?r ?h)
+            (holding ?r ?llave)
             (coche-en-suelo ?c)
         )
         :effect (and 
-            (tuercas-flojas ?c)
+            (tuercas-aflojadas ?c)
         )
     )
     
     (:action levantar-coche
-        :parameters (?r - robot ?h - herramienta ?c - coche ?loc - ubicacion)
+        :parameters (?r - robot ?gato - herramienta ?c - coche ?loc - ubicacion)
         :precondition (and 
             (at ?r ?loc)
             (at ?c ?loc)
-            (holding ?r ?h)
+            (holding ?r ?gato)
             (coche-en-suelo ?c)
-            (tuercas-flojas ?c)
+            (tuercas-aflojadas ?c)
         )
         :effect (and 
             (not (coche-en-suelo ?c))
@@ -79,18 +79,17 @@
         )
     )
     
-    (:action quitar-rueda
+    (:action quitar-rueda-vieja
         :parameters (?r - robot ?c - coche ?rueda-vieja - rueda ?loc - ubicacion)
         :precondition (and 
             (at ?r ?loc)
             (at ?c ?loc)
             (at ?rueda-vieja ?loc)
             (coche-elevado ?c)
-            (tuercas-flojas ?c)
+            (tuercas-aflojadas ?c)
             (libre ?r)
         )
-        :effect (and 
-            (not (at ?rueda-vieja ?loc))
+        :effect (and
             (holding ?r ?rueda-vieja)
             (not (libre ?r))
             (rueda-quitada ?c)
@@ -103,6 +102,8 @@
             (at ?r ?loc)
             (at ?c ?loc)
             (holding ?r ?rueda-nueva)
+            (coche-elevado ?c)
+            (rueda-quitada ?c)
 
         )
         :effect (and 
