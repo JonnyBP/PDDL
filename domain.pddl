@@ -18,7 +18,8 @@
         (coche-elevado ?c - coche)
         (tuercas-apretadas ?c - coche)
         (tuercas-aflojadas ?c - coche)
-        (hueco-libre ?c - coche)        ; no hay rueda montada
+        (hueco-libre ?c - coche)  
+        (tiene ?m - mecanico ?i - portatil)
     )
 
     (:action mover-robot
@@ -37,6 +38,12 @@
         :parameters (?r - robot ?item - portatil ?loc - ubicacion)
         :precondition (and (at ?r ?loc) (holding ?r ?item))
         :effect (and (not (holding ?r ?item)) (at ?item ?loc) (libre ?r))
+    )
+
+    (:action entregar
+    :parameters (?r - robot ?i - portatil ?m - mecanico ?loc - ubicacion)
+    :precondition (and (at ?r ?loc) (at ?m ?loc) (holding ?r ?i))
+    :effect (and (not (holding ?r ?i)) (libre ?r) (tiene ?m ?i))
     )
 
     (:action aflojar-tuercas
