@@ -1,32 +1,30 @@
-(define (problem resolver-pinchazo) 
+(define (problem resolver-pinchazo)
     (:domain taller-mecanico-completo)
     (:objects
         almacen zona-coche - ubicacion
-
         robot1 - robot
         coche1 - coche
-
-        llave gato - herramienta
+        llave1 - llave
+        gato1 - gato
         rueda-vieja rueda-nueva - rueda
     )
 
     (:init
-        ;; Posicion inicial de los elementos
         (at robot1 almacen)
-        (at llave almacen)
-        (at gato almacen)
+        (at llave1 almacen)
+        (at gato1 almacen)
         (at rueda-nueva almacen)
-
         (at coche1 zona-coche)
 
-        ;; estado inicial del robot y coche
         (libre robot1)
         (coche-en-suelo coche1)
-
+        (tuercas-apretadas coche1)
+        (montada rueda-vieja coche1)
     )
 
     (:goal (and
-        (rueda-puesta coche1)
+        (montada rueda-nueva coche1)
+        (coche-en-suelo coche1)
+        (tuercas-apretadas coche1)
     ))
-
 )
