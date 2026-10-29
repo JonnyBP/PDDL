@@ -1,0 +1,9 @@
+;;!domain: taller-mecanico-completo
+;;!problem: aflojar-tuercas-simple
+
+0.00000: (RECOGER ROBOT1 LLAVE1 ALMACEN)
+0.00100: (MOVER-ROBOT ROBOT1 ALMACEN ZONA-COCHE)
+0.00200: (AFLOJAR-TUERCAS ROBOT1 LLAVE1 COCHE1 ZONA-COCHE)
+
+; Makespan: 0.002
+; Metric: 0.002

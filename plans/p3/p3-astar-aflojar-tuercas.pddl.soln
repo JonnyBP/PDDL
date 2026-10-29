@@ -1,0 +1,3 @@
+(recoger robot1 llave1 almacen)
+(mover-robot robot1 almacen zona-coche)
+(aflojar-tuercas robot1 llave1 coche1 zona-coche)
